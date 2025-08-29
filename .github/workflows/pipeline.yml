@@ -12,4 +12,4 @@ jobs:
     runs-on: [self-hosted, Windows, X64]  # Corrected line
     steps:
     - name: First Step
-      run: echo "Hello World from Ankit-Kumar Runner"
+      run: echo "Hello World from Ankit-Kumar Runner and This job is running on: $RUNNER_NAME"
