@@ -9,7 +9,7 @@ on:
 jobs:
   terraformInit:
     name: Terraform Init
-    runs-on: [self-hosted, Ankit-Kumar]  # Corrected line
+    runs-on: [self-hosted, Ankit Kumar GitHub]  # Corrected line
     steps:
     - name: First Step
       run: echo "Hello World from Ankit-Kumar Runner"
