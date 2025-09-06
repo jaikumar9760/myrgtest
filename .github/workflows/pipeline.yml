@@ -1,8 +1,7 @@
 name: "Ankit Kumar GitHub"
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'  # This runs every 5 minutes
+  
   push:
     branches:
       - 'feature/**'
