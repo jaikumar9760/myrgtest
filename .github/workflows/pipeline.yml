@@ -2,40 +2,46 @@ name: "Ankit Kumar GitHub"
 
 on:
   schedule:
-    - cron: '*/5 * * * *' 
+    - cron: '*/5 * * * *'  # This runs every 5 minutes
   push:
     branches:
       - 'feature/**'
       - 'main'
       - 'hotfix/**'
+
 permissions:
   id-token: write
   contents: read
-  jobs:
-    terraformInit:
-      name: Terraform Init
-      runs-on: [self-hosted, Ankit-Runner-LB]
 
-      steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      
-      - name: Set Up Terraform
-        uses: hashicorp/setup-terraform@v2  # Action to install Terraform
-        with:
-          terraform_version: '1.4.5'  # Specify the version of Terraform you need
+jobs:
+  terraformInit:
+    name: Terraform Init
+    runs-on: [self-hosted, Ankit-Runner-LB]
 
-      - name: Azure Login using OIDC
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      - name: Terraform Init
-        run: terraform init  # Initializes the Terraform configuration
-        working-directory: ./environment/dev/
-      
-      - name: Terraform Plan
-        run: terraform plan  # plan the Terraform configuration
-        working-directory: ./environment/dev/
-    
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: '1.4.5'
+
+    - name: Azure Login using OIDC
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./environment/dev/  # Set the working directory to the "terraform-config" folder
+
+    - name: Terraform Plan
+      run: terraform plan
+      working-directory: ./environment/dev/  # Set the working directory for plan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./terraform-config  # Set the working directory for apply
