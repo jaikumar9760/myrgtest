@@ -11,31 +11,31 @@ on:
 permissions:
   id-token: write
   contents: read
-jobs:
-  terraformInit:
-    name: Terraform Init
-    runs-on: [self-hosted, Ankit-Runner-LB]
+  jobs:
+    terraformInit:
+      name: Terraform Init
+      runs-on: [self-hosted, Ankit-Runner-LB]
 
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+      steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       
-    - name: Set Up Terraform
-      uses: hashicorp/setup-terraform@v2  # Action to install Terraform
-      with:
-        terraform_version: '1.4.5'  # Specify the version of Terraform you need
+      - name: Set Up Terraform
+        uses: hashicorp/setup-terraform@v2  # Action to install Terraform
+        with:
+          terraform_version: '1.4.5'  # Specify the version of Terraform you need
 
-    - name: Azure Login using OIDC
-      uses: azure/login@v1
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    - name: Terraform Init
-      run: terraform init  # Initializes the Terraform configuration
-      working-directory: ./environment/dev/
+      - name: Azure Login using OIDC
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Terraform Init
+        run: terraform init  # Initializes the Terraform configuration
+        working-directory: ./environment/dev/
       
-   - name: Terraform Plan
-      run: terraform plan  # Initializes the Terraform configuration
-      working-directory: ./environment/dev/
+      - name: Terraform Plan
+        run: terraform plan  # plan the Terraform configuration
+        working-directory: ./environment/dev/
     
