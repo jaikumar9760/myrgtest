@@ -33,7 +33,7 @@ jobs:
     - name: Terraform Init
       run: terraform init  # Initializes the Terraform configuration
       working-directory: ./environment/dev/
-    - name:Terraform Plan 
-      run: terraform plan
+    - name: Terraform Plan
+      run: terraform plan  # Planning the Terraform configuration
       working-directory: ./environment/dev/
     
