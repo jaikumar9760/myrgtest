@@ -2,7 +2,7 @@ name: "Ankit Kumar GitHub"
 
 on:
   schedule:
-    - cron: '50 9 * * *' 
+    - cron: '*/5 * * * *' 
   push:
     branches:
       - 'feature/**'
@@ -19,6 +19,10 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+      name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2  # Action to install Terraform
+      with:
+        terraform_version: '1.4.5'  # Specify the version of Terraform you need
 
     - name: Azure Login using OIDC
       uses: azure/login@v1
@@ -26,6 +30,10 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-    - name: First Step
-      run: echo "Hello World from Ankit-Kumar Runner"
+    - name: Terraform Init
+      run: terraform init  # Initializes the Terraform configuration
+      working-directory: ./environment/dev/
+    - name:Terraform Plan 
+      run: terraform plan
+      working-directory: ./environment/dev/
+    
