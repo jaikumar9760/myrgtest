@@ -36,12 +36,12 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-      working-directory: environment\dev\  # Set the working directory to the "terraform-config" folder
+      working-directory: myrg\environment\dev\  # Set the working directory to the "terraform-config" folder
 
     - name: Terraform Plan
       run: terraform plan
-      working-directory: environment\dev\  # Set the working directory for plan
+      working-directory: myrg\environment\dev\  # Set the working directory for plan
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: environment\dev\  # Set the working directory for apply
+      working-directory: myrg\environment\dev\  # Set the working directory for apply
