@@ -21,10 +21,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.6.6  # Set your desired version
+    
           
     - name: Terraform Format Check
         run: terraform fmt -check
