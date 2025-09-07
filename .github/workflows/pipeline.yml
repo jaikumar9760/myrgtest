@@ -22,10 +22,15 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: '1.4.5'
-
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6  # Set your desired version
+          
+    - name: Terraform Format Check
+        run: terraform fmt -check
+        working-directory: environment/dev
+        shell: pwsh  # On Windows self-hosted runners
+        
     - name: Azure Login using OIDC
       uses: azure/login@v1
       with:
@@ -36,11 +41,13 @@ jobs:
     - name: Terraform Init
       run: terraform init
       working-directory: myrg/environment/dev/  # Set the working directory to the "terraform-config" folder
-
+      shell: pwsh
+      
     - name: Terraform Plan
       run: terraform plan
       working-directory: myrg/environment/dev/  # Set the working directory for plan
-
+      shell: pwsh
+      
     - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: myrg/environment/dev/  # Set the working directory for apply
