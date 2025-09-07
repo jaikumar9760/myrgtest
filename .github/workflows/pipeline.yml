@@ -24,9 +24,9 @@ jobs:
     
           
     - name: Terraform Format Check
-        run: terraform fmt -check
-        working-directory: environment/dev
-        shell: pwsh  # On Windows self-hosted runners
+      run: terraform fmt -check
+      working-directory: environment/dev
+      shell: pwsh  # On Windows self-hosted runners
         
     - name: Azure Login using OIDC
       uses: azure/login@v1
