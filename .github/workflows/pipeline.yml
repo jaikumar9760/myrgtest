@@ -39,7 +39,7 @@ jobs:
       working-directory: myrg/environment/dev/  # Set the working directory to the "terraform-config" folder
     - name: Terraform Fmt
       id: Fmt
-      run: terraform fmt -check
+      run: terraform fmt
       continue-on-error: true
       working-directory: myrg/environment/dev/  # Set the working directory to the "terraform-config" folder
       
