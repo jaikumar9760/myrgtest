@@ -48,6 +48,21 @@ jobs:
       run: terraform validate
       working-directory: myrg/environment/dev/  # Set the working directory to the "terraform-config" folder
       
+    - name: TFLint
+      id: tflint
+      run: tflint
+      working-directory: myrg/environment/dev/
+
+    - name: Trivy IaC Scan
+      id: trivy
+      run: trivy config .
+      working-directory: myrg/environment/dev/
+      
+    - name: Checkov Scan
+      id: checkov
+      run: checkov -d .
+      working-directory: myrg/environment/dev/
+      
     - name: Terraform Plan
       id: plan
       continue-on-error: true
